@@ -1,13 +1,26 @@
 <script>
+  import LoginForm from "./LoginForm.svelte";
+
   let logoSrc = "/img/logo.png";
   let name = "Кубыч";
 
   let user = { loggedIn: false };
 
+  function openLoginMenu() {
+    document.getElementById("loginMenu").style.display = "flex";
+  }
+
   function toggle() {
     user.loggedIn = !user.loggedIn;
   }
 </script>
+
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/mono-icons@1.0.5/iconfont/icons.css"
+  />
+</svelte:head>
 
 <header>
   <img src={logoSrc} alt="" class="logo" />
@@ -23,9 +36,13 @@
   {/if}
 
   {#if !user.loggedIn}
-    <button on:click={toggle}> Войти </button>
+    <button on:click={openLoginMenu}> Войти </button>
   {/if}
 </header>
+
+<div class="loginWraper" id="loginMenu">
+  <LoginForm />
+</div>
 
 <style>
   header {
@@ -50,6 +67,18 @@
 
   button:hover {
     background-color: #1f1f24;
+  }
+
+  .loginWraper {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(1rem);
   }
 
   .logo {
