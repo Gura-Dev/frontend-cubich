@@ -27,6 +27,7 @@
 			showModal = false;
 		}
 	}
+	
 	function handlePlay() {
 		if (token !== '') {
 			goto('/profile');

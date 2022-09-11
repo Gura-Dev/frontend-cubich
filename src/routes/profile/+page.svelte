@@ -13,12 +13,13 @@
     });
 
     let fileVar;
-    function submitForm(){
+    async function submitForm(){
       const dataArray = new FormData();
-      dataArray.append("uploadFile", fileVar);
-      fetch("https://cubich.ru/auth/UploadSkin/", {
+      dataArray.append("file", fileVar);
+      await fetch("https://cubich.ru/auth/UploadSkin/", {
         method: "POST",
         headers: {
+                    'Accept': '*/*',
 					'Content-Type': 'multipart/form-data',
 					'Authorization': `Bearer ${token}`
 				},
@@ -35,11 +36,12 @@
 
 {#if token !== ''}
     <div>
-        <form on:submit={submitForm} action="#">
+        <form on:submit|preventDefault={submitForm}>
             <label class="custom-file-upload">
                 <input type="file" bind:files={fileVar} class='load-skin'/>
                 Загрузить скин
             </label>
+            <p>{fileVar}</p>
             <br />
             <input class="submit-button" type="submit" />
         </form>
