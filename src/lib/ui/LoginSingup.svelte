@@ -413,6 +413,11 @@
     box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
     }
 
+    .shake-button {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        perspective: 1000px;
+    }
 
     @keyframes shake {
         10%, 90% {
