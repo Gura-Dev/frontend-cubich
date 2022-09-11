@@ -1,16 +1,16 @@
 <script>
     import { tokenStore } from '../../stores.js';
+    import { onMount } from 'svelte';
     let tokenValue = '';
 
-	tokenStore.subscribe(value => {
-		tokenValue = value;
-	});
+    onMount(async () => {
+        tokenStore.useLocalStorage();
+        tokenStore.subscribe((value) => {
+            tokenValue = value;
+        });
+    });
 
     async function handleLogin() {
-        const token = "yakekestoken"
-        
-
-
         // @ts-ignore
         const data = new FormData(document.querySelector('#login-form'));
         const user = data.get('logname');
@@ -22,7 +22,7 @@
         })
 
         console.log(jso);
-        let response = await fetch('https://localhost:5001/login/', {
+        let response = await fetch('https://cubich.ru/auth/login/', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -59,7 +59,7 @@
         })
 
         console.log(jso);
-        let response = await fetch('https://localhost:5001/register/', {
+        let response = await fetch('https://cubich.ru/auth/register/', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {

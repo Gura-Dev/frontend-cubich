@@ -3,6 +3,8 @@
 	import { tokenStore } from '../../stores';
 	import logo from './logo.png';
 
+	
+
 	let name = 'Кубыч';
 
 	const menus = [
@@ -21,6 +23,7 @@
 	};
 
 	onMount(async () => {
+		tokenStore.useLocalStorage();
 		tokenStore.subscribe((value) => {
 			token = value;
 		});
