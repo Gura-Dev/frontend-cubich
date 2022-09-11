@@ -42,6 +42,11 @@
         }
         
         console.log(response.status);
+
+        return {
+            headers: { Location: '/' },
+            status: 302
+        };
     }
 
     async function handleRegister() {
@@ -69,6 +74,11 @@
             })
         
         console.log(response.status);
+
+        return {
+            headers: { Location: '/' },
+            status: 302
+        };
     }
 </script>
 
@@ -94,7 +104,7 @@
                                             <input type="password" name="logpass" class="form-style" placeholder="Пароль" id="logpass" autocomplete="off">
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
-                                        <a href="#" on:click={handleLogin} class="btn mt-4">Войти</a>
+                                        <a href="/" on:click={handleLogin} class="btn mt-4">Войти</a>
                                         <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Забыли пароль?</a></p>
                                     </form>
                                 </div>
@@ -115,7 +125,7 @@
                                             <input type="password" name="regpassconfirm" class="form-style" placeholder="Повторите пароль" id="regpassconfirm" autocomplete="off">
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
-                                        <a href="#" on:click={handleRegister} class="btn mt-4">Зарегистрироваться</a>
+                                        <a href="/" on:click={handleRegister} class="btn mt-4">Зарегистрироваться</a>
                                     </form>
                                 </div>
                             </div>

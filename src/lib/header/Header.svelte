@@ -138,7 +138,7 @@
 		flex-direction: row;
 	}
 
-	.right_corner {
+	.right-corner {
 		display: flex;
 		align-items: center;
 		justify-content: center;
