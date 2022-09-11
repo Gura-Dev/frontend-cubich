@@ -1,7 +1,10 @@
 <script>
     import { tokenStore } from '../../stores.js';
     import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
     let tokenValue = '';
+    let shakeLoginButton = false;
+    let shakeRegisterButton = false;
 
     onMount(async () => {
         tokenStore.useLocalStorage();
@@ -11,6 +14,7 @@
     });
 
     async function handleLogin() {
+        shakeLoginButton = false;
         // @ts-ignore
         const data = new FormData(document.querySelector('#login-form'));
         const user = data.get('logname');
@@ -38,18 +42,15 @@
                 console.log(tokenValue);
             });
         } else {
-            console.log(response.status);
+            shakeLoginButton = true;
         }
         
         console.log(response.status);
-
-        return {
-            headers: { Location: '/' },
-            status: 302
-        };
+        goto('/');
     }
 
     async function handleRegister() {
+        shakeRegisterButton = false;
         // @ts-ignore
         const data = new FormData(document.querySelector('#register-form'));
         const user = data.get('regname');
@@ -75,10 +76,11 @@
         
         console.log(response.status);
 
-        return {
-            headers: { Location: '/' },
-            status: 302
-        };
+        if (response.ok) {
+            console.log(`Registered ${user}`);
+        } else {
+            shakeRegisterButton = true;
+        }
     }
 </script>
 
@@ -104,7 +106,7 @@
                                             <input type="password" name="logpass" class="form-style" placeholder="Пароль" id="logpass" autocomplete="off">
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
-                                        <a href="/" on:click={handleLogin} class="btn mt-4">Войти</a>
+                                        <a href="/" on:click={handleLogin} class="btn mt-4" class:shake-button={shakeLoginButton}>Войти</a>
                                         <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Забыли пароль?</a></p>
                                     </form>
                                 </div>
@@ -125,7 +127,7 @@
                                             <input type="password" name="regpassconfirm" class="form-style" placeholder="Повторите пароль" id="regpassconfirm" autocomplete="off">
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
-                                        <a href="/" on:click={handleRegister} class="btn mt-4">Зарегистрироваться</a>
+                                        <a href="/" on:click={handleRegister} class="btn mt-4" class:shake-button={shakeRegisterButton}>Зарегистрироваться</a>
                                     </form>
                                 </div>
                             </div>
@@ -409,5 +411,21 @@
     background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+    }
+
+
+    @keyframes shake {
+        10%, 90% {
+            transform: translate3d(-1px, 0, 0);
+        }
+        20%, 80% {
+            transform: translate3d(2px, 0, 0);
+        }
+        30%, 50%, 70% {
+            transform: translate3d(-4px, 0, 0);
+        }
+        40%, 60% {
+            transform: translate3d(4px, 0, 0);
+        }
     }
 </style>
