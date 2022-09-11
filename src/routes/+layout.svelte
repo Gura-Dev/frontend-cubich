@@ -2,12 +2,16 @@
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
 	import '../app.scss';
+	let restart = {};
+	function handleRestart() {
+		restart = {};
+	}
 </script>
 
 <Header/>
 
 <main>
-	<slot />
+	<slot/>
 </main>
 
 <Footer />

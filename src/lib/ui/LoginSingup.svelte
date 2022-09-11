@@ -1,8 +1,11 @@
 <script>
     import { tokenStore } from '../../stores.js';
     import { onMount } from 'svelte';
-    import { goto } from '$app/navigation';
-    let tokenValue = '';
+
+    import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
+    export let tokenValue = '';
     let shakeLoginButton = false;
     let shakeRegisterButton = false;
     let showResponce = false;
@@ -54,6 +57,7 @@
                 tokenStore.set(text);
                 console.log(tokenValue);
             });
+            dispatch('login', {text: `${user}`});
         } else {
             shakeLoginButton = true;
 
@@ -101,6 +105,7 @@
 
         if (response.ok) {
             console.log(`Registered ${user}`);
+            dispatch('register', {text: `${user}`});
         } else {
             shakeRegisterButton = true;
 
@@ -462,9 +467,12 @@
         color: #ffeba7;
         text-align: center;
         margin-top: 10px;
-        display: block;
+        display: none;
     }
 
+    .show-comment {
+        display: block;
+    }
     
     @keyframes shake {
         10%, 90% {

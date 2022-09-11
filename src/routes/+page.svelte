@@ -5,6 +5,10 @@
 <script>
 	let showModal = false;
 	import LoginForm from '$lib/ui/LoginSingup.svelte';
+
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 	function handleClickScreen() {
 		if (showModal) {
 			showModal = false;
@@ -12,6 +16,11 @@
 	}
 	function handlePlay() {
 		showModal = !showModal;
+	}
+
+	function handleDone() {
+		showModal = false;
+		dispatch('done');
 	}
 </script>
 
@@ -30,7 +39,7 @@
 		<img src="wizard.png" alt="" class="wizard">
 	</div>
 	<div id="loginform" class:showed={showModal}>
-		<LoginForm/>
+		<LoginForm on:login={handleDone}/>
 	</div>
 </div>
 
