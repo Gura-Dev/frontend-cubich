@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import { tokenStore } from '../../stores';
 	import logo from './logo.png';
 
 	let name = 'Кубыч';
@@ -9,7 +10,46 @@
     { label: 'Карта', href: 'https://cubich.ru/map' },
     // { label: 'Правила', href: '/rules' },
     // { label: 'Контакты', href: '/contacts' },
-  ];
+  	];
+
+	import { onMount } from 'svelte';
+
+	let token = '';
+	let user = {
+		username: '',
+		logged_in: false
+	};
+
+	onMount(async () => {
+		tokenStore.subscribe((value) => {
+			token = value;
+		});
+		
+		console.log("Check token: " + token);
+		if (token !== '') {
+			const responce = await fetch('https://cubich.ru/auth/ping/', {
+				method: 'POST',
+				mode: 'cors',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+				}
+			});
+			
+			if (responce.ok) {
+				user.logged_in = true;
+				responce.text().then((text) => {
+					user.username = text;
+				});
+				console.log("Logged in as " + user.username);
+			} else {
+				console.log(responce.status);
+			}
+		} else {
+			console.log("No token");
+		}
+		
+	});
 </script>
 
 <header>
@@ -34,6 +74,15 @@
 	</nav>
 
 	<div class="right-corner corner">
+		{#if user.logged_in}
+			<a href="/profile" class="topname">{user.username}</a>
+			<div class="separator"></div>
+			<a href="/logout" class="topname">Выйти</a>
+		{:else}
+			<a href="/login" class="topname">Войти</a>
+			<div class="separator"></div>
+			<a href="/register" class="topname">Регистрация</a>
+		{/if}
 	</div>
 </header>
 

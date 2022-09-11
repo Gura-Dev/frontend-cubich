@@ -9,8 +9,39 @@
     async function handleLogin() {
         const token = "yakekestoken"
         
-        tokenStore.set(token);
-        console.log(tokenValue);
+
+
+        // @ts-ignore
+        const data = new FormData(document.querySelector('#login-form'));
+        const user = data.get('logname');
+        const pwd = data.get('logpass');
+
+        const jso = JSON.stringify({
+            userName: user,
+            password: pwd
+        })
+
+        console.log(jso);
+        let response = await fetch('https://localhost:5001/login/', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jso
+            })
+
+        if (response.ok) {
+            console.log("OK");
+            response.text().then((text) => {
+                tokenStore.set(text);
+                console.log(tokenValue);
+            });
+        } else {
+            console.log(response.status);
+        }
+        
+        console.log(response.status);
     }
 
     async function handleRegister() {
@@ -28,15 +59,16 @@
         })
 
         console.log(jso);
-        let response = await fetch('https://cubich.ru/auth/register', {
+        let response = await fetch('https://localhost:5001/register/', {
                     method: 'POST',
+                    mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: jso
             })
         
-        console.log(response);
+        console.log(response.status);
     }
 </script>
 
