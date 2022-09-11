@@ -39,6 +39,7 @@
 
 <style>
 	header {
+		font-family: Montserrat;
 		display: flex;
 		justify-content: flex-start;
 		width: 100%;

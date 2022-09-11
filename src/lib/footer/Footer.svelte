@@ -4,6 +4,7 @@
 
 <style>
     footer {
+        font-family: Montserrat;
         display: flex;
         justify-content: center;
         align-items: center;

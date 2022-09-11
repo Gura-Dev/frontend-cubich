@@ -1,11 +1,9 @@
 <script>
-import { goto } from "$app/navigation";
-
-
-    let title = "Играть";
-
-    function handleClick() {
-		goto("/register");
+    import { goto } from "$app/navigation";
+    export let url = "/register";
+    export let title = "Играть";
+    export function handleClick() {
+		goto(url);
 	}
 </script>
 

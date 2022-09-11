@@ -1,10 +1,10 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/footer/Footer.svelte';
-	import '../app.css';
+	import '../app.scss';
 </script>
 
-<Header />
+<Header/>
 
 <main>
 	<slot />
@@ -14,6 +14,7 @@
 
 <style>
 	main {
+		font-family: Montserrat;
 		flex: 1;
 		display: flex;
 		flex-direction: column;
