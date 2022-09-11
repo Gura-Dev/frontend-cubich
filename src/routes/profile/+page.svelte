@@ -16,18 +16,20 @@
     async function submitForm(){
       const dataArray = new FormData();
       dataArray.append('damName', 'skin');
-      dataArray.append("dataFile", files[0]);
+      dataArray.append("dataFile", files);
       await fetch("https://cubich.ru/auth/UploadSkin/", {
         method: "POST",
         headers: {
                     'Accept': '*/*',
-					'Content-Type': 'multipart/form-data; charset=utf-8; boundary=' + Math.random().toString().substr(2),
 					'Authorization': `Bearer ${token}`
 				},
         body: dataArray
       })
         .then(response => {
           console.log(response);
+          response.text().then((text) => {
+            console.log("TEXT: " + text);
+          });
         })
         .catch(error => {
             console.log(error);
@@ -39,10 +41,10 @@
     <div>
         <form on:submit|preventDefault={submitForm}>
             <label class="custom-file-upload">
-                <input type="file" bind:files class='load-skin'/>
+                <input type="file" bind:files={files} class='load-skin'/>
                 Загрузить скин
             </label>
-            <p>{files[0].name}</p>
+            <p>{files}</p>
             <br />
             <input class="submit-button" type="submit" />
         </form>
