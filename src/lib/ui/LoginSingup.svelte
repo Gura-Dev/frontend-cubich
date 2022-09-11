@@ -5,6 +5,9 @@
     let tokenValue = '';
     let shakeLoginButton = false;
     let shakeRegisterButton = false;
+    let showResponce = false;
+    let loginComment = document.getElementById('login-comment');
+    let registerComment = document.getElementById('register-comment');
 
     onMount(async () => {
         tokenStore.useLocalStorage();
@@ -46,7 +49,6 @@
         }
         
         console.log(response.status);
-        goto('/');
     }
 
     async function handleRegister() {
@@ -108,6 +110,7 @@
                                         </div>
                                         <a href="/" on:click={handleLogin} class="btn mt-4" class:shake-button={shakeLoginButton}>Войти</a>
                                         <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Забыли пароль?</a></p>
+                                        <p class="responce-comment" id="login-comment" class:show-comment={showResponce}>Даня гей</p>
                                     </form>
                                 </div>
                             </div>
@@ -128,6 +131,7 @@
                                             <i class="input-icon uil uil-lock-alt"></i>
                                         </div>
                                         <a href="/" on:click={handleRegister} class="btn mt-4" class:shake-button={shakeRegisterButton}>Зарегистрироваться</a>
+                                        <p class="responce-comment" id="register-comment" class:show-comment={showResponce}>Тимоха гей</p>
                                     </form>
                                 </div>
                             </div>
@@ -419,6 +423,16 @@
         perspective: 1000px;
     }
 
+    .responce-comment {
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffeba7;
+        text-align: center;
+        margin-top: 10px;
+        display: block;
+    }
+
+    
     @keyframes shake {
         10%, 90% {
             transform: translate3d(-1px, 0, 0);
