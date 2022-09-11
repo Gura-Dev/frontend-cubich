@@ -53,6 +53,14 @@
 		}
 		
 	});
+
+	function handleExit() {
+		tokenStore.set('');
+		user.logged_in = false;
+		user.username = '';
+
+		console.log("Logged out");
+	}
 </script>
 
 <header>
@@ -80,11 +88,9 @@
 		{#if user.logged_in}
 			<a href="/profile" class="topname">{user.username}</a>
 			<div class="separator"></div>
-			<a href="/logout" class="topname">Выйти</a>
-		{:else}
-			<a href="/login" class="topname">Войти</a>
-			<div class="separator"></div>
-			<a href="/register" class="topname">Регистрация</a>
+			<a href="#" class="topname" on:click={handleExit}>Выйти</a>
+		<!-- {:else}
+			<a href="#" class="topname">Войти</a> -->
 		{/if}
 	</div>
 </header>
@@ -130,6 +136,16 @@
 		justify-content: center;
 		height: 100%;
 		flex-direction: row;
+	}
+
+	.right_corner {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		flex-direction: row;
+
+		margin-left: auto;
 	}
 
 	.separator {
