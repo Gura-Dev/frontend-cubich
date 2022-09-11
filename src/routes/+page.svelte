@@ -4,6 +4,19 @@
 
 <script>
 	let showModal = false;
+	let token = '';
+
+	import { onMount } from 'svelte';
+	import { tokenStore } from '../stores.js';
+	import { goto } from "$app/navigation";
+
+	onMount(async () => {
+		tokenStore.useLocalStorage();
+		tokenStore.subscribe((value) => {
+			token = value;
+		});
+	});
+
 	import LoginForm from '$lib/ui/LoginSingup.svelte';
 
 	import { createEventDispatcher } from 'svelte';
@@ -15,12 +28,16 @@
 		}
 	}
 	function handlePlay() {
-		showModal = !showModal;
+		if (token !== '') {
+			goto('/profile');
+		} else {
+			showModal = true;
+		}
 	}
 
 	function handleDone() {
 		showModal = false;
-		dispatch('done');
+		document.location.reload()
 	}
 </script>
 

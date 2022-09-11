@@ -34,6 +34,7 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
 		"jsdom": "^20.0.0",
+		"svelte-file-dropzone": "^1.0.0",
 		"tasty-cookies": "^1.0.1"
 	}
 }

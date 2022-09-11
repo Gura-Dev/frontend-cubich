@@ -47,6 +47,10 @@
 				console.log("Logged in as " + user.username);
 			} else {
 				console.log(responce.status);
+				user.logged_in = false;
+				user.username = '';
+				tokenStore.set('');
+				console.log("Unauthorized");
 			}
 		} else {
 			console.log("No token");
