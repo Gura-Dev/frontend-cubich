@@ -6,18 +6,28 @@
     let shakeLoginButton = false;
     let shakeRegisterButton = false;
     let showResponce = false;
-    let loginComment = document.getElementById('login-comment');
-    let registerComment = document.getElementById('register-comment');
+    /**
+* @type {HTMLElement | null}
+*/
+    let loginComment;
+    /**
+* @type {HTMLElement | null}
+*/
+    let registerComment;
 
     onMount(async () => {
         tokenStore.useLocalStorage();
         tokenStore.subscribe((value) => {
             tokenValue = value;
         });
+
+        loginComment = document.getElementById('login-comment');
+        registerComment = document.getElementById('register-comment');
     });
 
     async function handleLogin() {
         shakeLoginButton = false;
+        showResponce = false;
         // @ts-ignore
         const data = new FormData(document.querySelector('#login-form'));
         const user = data.get('logname');
@@ -46,6 +56,16 @@
             });
         } else {
             shakeLoginButton = true;
+
+            if (response.status == 401) {
+                // @ts-ignore
+                loginComment.innerHTML = "Неверный логин или пароль";
+            } else {
+                // @ts-ignore
+                loginComment.innerHTML = "Ошибка сервера";
+            }
+
+            showResponce = true;
         }
         
         console.log(response.status);
@@ -53,6 +73,7 @@
 
     async function handleRegister() {
         shakeRegisterButton = false;
+        showResponce = false;
         // @ts-ignore
         const data = new FormData(document.querySelector('#register-form'));
         const user = data.get('regname');
@@ -82,6 +103,18 @@
             console.log(`Registered ${user}`);
         } else {
             shakeRegisterButton = true;
+
+            if (response.status == 400) {
+                showResponce = true;
+                // @ts-ignore
+                registerComment.innerHTML = 'Пароли не совпадают';
+            } else if (response.status == 409) {
+                showResponce = true;
+                // @ts-ignore
+                registerComment.innerHTML = 'Пользователь с таким именем уже существует';
+            }
+
+            showResponce = true;
         }
     }
 </script>
