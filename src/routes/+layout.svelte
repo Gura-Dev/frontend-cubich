@@ -17,6 +17,7 @@
 <Footer />
 
 <style>
+	@import url(https://fonts.googleapis.com/css?family=Montserrat);
 	main {
 		font-family: Montserrat;
 		flex: 1;
