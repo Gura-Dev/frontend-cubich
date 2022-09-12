@@ -15,8 +15,7 @@
     let files;
     async function submitForm(){
       const dataArray = new FormData();
-      dataArray.append('damName', 'skin');
-      dataArray.append("dataFile", files);
+      dataArray.append("file", files[0]);
       await fetch("https://cubich.ru/auth/UploadSkin/", {
         method: "POST",
         headers: {
@@ -41,7 +40,7 @@
     <div>
         <form on:submit|preventDefault={submitForm}>
             <label class="custom-file-upload">
-                <input type="file" bind:files={files} class='load-skin'/>
+                <input type="file" bind:files class='load-skin'/>
                 Загрузить скин
             </label>
             <p>{files}</p>
