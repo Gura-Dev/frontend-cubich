@@ -105,7 +105,29 @@
 
         if (response.ok) {
             console.log(`Registered ${user}`);
-            dispatch('register', {text: `${user}`});
+            const jsoLogin = JSON.stringify({
+                userName: user,
+                password: pwd
+            })
+
+            let responseLogin = await fetch('https://cubich.ru/auth/login/', {
+                        method: 'POST',
+                        mode: 'cors',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: jsoLogin
+                })
+
+            if (responseLogin.ok) {
+                console.log("OK");
+                responseLogin.text().then((text) => {
+                    tokenStore.set(text);
+                });
+                dispatch('login', {text: `${user}`});
+            } else {
+                dispatch('register');
+            }
         } else {
             shakeRegisterButton = true;
 

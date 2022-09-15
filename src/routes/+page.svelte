@@ -57,7 +57,7 @@
 		<img src="wizard.png" alt="" class="wizard">
 	</div>
 	<div id="loginform" class:showed={showModal}>
-		<LoginForm on:login={handleDone}/>
+		<LoginForm on:login={handleDone} on:register={handleDone}/>
 	</div>
 </div>
 
