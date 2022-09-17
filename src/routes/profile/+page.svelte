@@ -52,7 +52,7 @@
         <div class="download-steps">
             <li><a href="https://www.java.com/ru/download/manual.jsp">Установи Java 8 в автономном режиме</a></li>
             <li><a href="https://www.google.com/search?q=java+17+download&oq=java+17+download&aqs=chrome..69i57j0i512l9.4404j0j7&sourceid=chrome&ie=UTF-8">Установи Java 17+</a></li>
-            <li><a href="http://launcher.cubich.ru/Launcher.exe">Установи лаунчер</a></li>
+            <li><a href="https://launcher.cubich.ru/Launcher.exe">Установи лаунчер</a></li>
         </div>
     </div>
     
