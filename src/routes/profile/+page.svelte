@@ -36,18 +36,26 @@
     }
   </script>
 
-{#if token !== ''}
-    <div>
-        <form on:submit|preventDefault={submitForm}>
-            <label class="custom-file-upload">
-                <input type="file" bind:files class='load-skin'/>
-                Загрузить скин
-            </label>
-            <p>{files}</p>
-            <br />
-            <input class="submit-button" type="submit" />
-        </form>
+{#if token == ''}
+    <div class="profile">
+        <div>
+            <form on:submit|preventDefault={submitForm}>
+                <label class="custom-file-upload">
+                    <input type="file" bind:files class='load-skin'/>
+                    Загрузить скин
+                </label>
+                <p>{files}</p>
+                <br />
+                <input class="submit-button" type="submit" />
+            </form>
+        </div>
+        <div class="download-steps">
+            <li><a href="https://www.java.com/ru/download/manual.jsp">Установи Java 8 в автономном режиме</a></li>
+            <li><a href="https://www.google.com/search?q=java+17+download&oq=java+17+download&aqs=chrome..69i57j0i512l9.4404j0j7&sourceid=chrome&ie=UTF-8">Установи Java 17+</a></li>
+            <li><a href="http://launcher.cubich.ru/Launcher.exe">Установи лаунчер</a></li>
+        </div>
     </div>
+    
 {:else}
     <div class="need-auth">
         <h1>Загрузка скина</h1>
@@ -57,6 +65,25 @@
 {/if}
 
 <style>
+    .profile {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        height: 100%;
+    }
+
+    li {
+        color: white;
+    }
+    
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+
     .need-auth {
         width: 100%;
         height: 100%;
