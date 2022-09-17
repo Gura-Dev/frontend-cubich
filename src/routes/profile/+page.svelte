@@ -36,7 +36,7 @@
     }
   </script>
 
-{#if token == ''}
+{#if token !== ''}
     <div class="profile">
         <div>
             <form on:submit|preventDefault={submitForm}>
